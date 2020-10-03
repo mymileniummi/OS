@@ -14,7 +14,10 @@ function reverse {
 		then
 		        echo -e "\033[31m Not enough rights for writing in file \033[0m"
 		else
-			rev $2 > $3
+			echo -n > temp.txt
+			cat $2 > temp.txt
+			echo "I am here"
+			rev temp.txt > $3
 			echo "Reversed succesfully"
 		fi
 	fi

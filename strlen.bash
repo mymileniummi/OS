@@ -4,6 +4,6 @@ function strlen {
 	arg_count $1 2
 	if  [ $? -eq 0 ]
 	then
-		 expr length "$2"
+		 echo  ${#2}
 	fi
 }

@@ -13,12 +13,16 @@ case $1 in
 	     reverse $# $2 $3
 	;;
 	strlen)
-	     . ./strlen.bash
-	     strlen $# $2
+	     . ./arg_count_check.bash
+	     arg_count $# 2
+	     if [ $? -eq 0 ]
+	     then
+		echo ${#2}
+	     fi
 	;;
 	log)
 	     . ./log.bash
-	     log
+	     log $#
 	;;
 	exit)
 	     . ./exit.bash

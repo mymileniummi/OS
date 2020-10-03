@@ -17,18 +17,19 @@ function menu {
 		C)
 			. ./calc.bash
 			echo "Enter the operation"
-			read arg1
+			read  arg1
 			echo "Enter first number"
-			read arg2
+			read  arg2
 			echo "Enter second number"
-			read arg3
+			read  arg3
 			calc 4 $arg1 $arg2 $arg3
 		;;
 		S)
 			. ./search.bash
-			echo "Enter directory"
+			echo "Enter directory and regular expression"
 			read arg1
-			search $arg1
+			read arg2
+			search 3 $arg1 $arg2
 		;;
 		R)
 			. ./reverse.bash
@@ -38,11 +39,14 @@ function menu {
 			read arg2
 			reverse $arg1 $arg2
 		;;
+		L)
+			. ./log.bash
+			log
+		;;
 		STR)
 			echo "Enter a phrase"
 			read arg1
-			. ./strlen.bash 
-			strlen $arg1
+			echo ${#arg1}
 		;;
 		E)
 			echo "Exit code:"
