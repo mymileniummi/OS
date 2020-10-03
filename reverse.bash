@@ -1,16 +1,21 @@
 #!/bin/bash
 function reverse {
-	if [ $# -lt 2 ]
+	. ./arg_count_check.bash
+	arg_count $1 3
+	if [ $? -eq 0 ]
 	then
-		echo "Not enough arguments"
-	elif [ ! -e $1 ]
-	then
-		echo "File for reading doesnt exists"
-	elif [ ! -r $1 -o ! -r $2 ]
-	then
-		echo "Not enough rights for writing/reading file"
-	else
-		rev $1 > $2
-		echo "Reversed succesfully"
+		if [ ! -e $2 ]
+		then
+			echo -e "\033[31m File for reading doesnt exists \033[0m"
+		elif [ ! -r $2 ]
+		then
+			echo -e "\033[31m Not enough rights for reading file \033[0m"
+		elif [ -e $3 -a ! -r $3 ]
+		then
+		        echo -e "\033[31m Not enough rights for writing in file \033[0m"
+		else
+			rev $2 > $3
+			echo "Reversed succesfully"
+		fi
 	fi
 }

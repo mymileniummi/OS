@@ -1,9 +1,9 @@
 #!/bin/bash
 function strlen {
-	if  [ $# -lt 1 ]
+	. ./arg_count_check.bash
+	arg_count $1 2
+	if  [ $? -eq 0 ]
 	then
-		echo "Not enough arguments"
-	else
-		echo ${#1}
+		 expr length "$2"
 	fi
 }

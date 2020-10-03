@@ -1,21 +1,20 @@
-@@ -0,0 +1,36 @@
 #!/bin/bash
 case $1 in
 	calc)
 	    . ./calc.bash
-	    calc $2 $3 $4
+	    calc $# $2 $3 $4
 	;;
 	search)
 	     . ./search.bash
-	     search $2
+	     search $# $2 $3
 	;;
 	reverse)
-	     . ./reverse.bash
-	     reverse $2 $3
+             . ./reverse.bash
+	     reverse $# $2 $3
 	;;
 	strlen)
 	     . ./strlen.bash
-	     strlen $2
+	     strlen $# $2
 	;;
 	log)
 	     . ./log.bash
@@ -26,12 +25,14 @@ case $1 in
 	     eXXit $2
 	;;
 	help)
-	 . ./help_information
-         help
+	     . ./help.bash
+             help
 	;;
 	interactive)
 	  . ./interactive.bash
 	  menu
 	;;
-
+	*)
+	echo -e "\033[31m Unknoun command\033[0m"
+	;;
 esac

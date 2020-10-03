@@ -2,8 +2,8 @@
 function menu {
 	while :
 	do
- 	   echo "
----===Menu===---
+ 	   echo -e "
+---===\033[36mMenu\033[0m===---
  enter:
 1) C for calc
 2) S for search
@@ -22,7 +22,7 @@ function menu {
 			read arg2
 			echo "Enter second number"
 			read arg3
-			calc $arg1 $arg2 $arg3
+			calc 4 $arg1 $arg2 $arg3
 		;;
 		S)
 			. ./search.bash
@@ -51,9 +51,11 @@ function menu {
 			eXXit $arg1
 		;;
 		H)
-			. ./help_information
+			. ./help.bash
 			help
 		;;
+		*)
+			echo -e  "\033[31mUnknown command\033[0m"
 	esac
 done
 }
