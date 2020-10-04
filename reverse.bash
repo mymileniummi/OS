@@ -7,6 +7,9 @@ function reverse {
 		if [ ! -e $2 ]
 		then
 			echo -e "\033[31m File for reading doesnt exists \033[0m"
+		elif [ $3 = ""]
+		then 
+			echo -e "\033[31m Can not create file with unknown name \033[0m"
 		elif [ ! -r $2 ]
 		then
 			echo -e "\033[31m Not enough rights for reading file \033[0m"
@@ -16,7 +19,6 @@ function reverse {
 		else
 			echo -n > temp.txt
 			cat $2 > temp.txt
-			echo "I am here"
 			rev temp.txt > $3
 			echo "Reversed succesfully"
 		fi
