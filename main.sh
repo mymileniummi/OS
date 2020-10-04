@@ -1,4 +1,8 @@
 #!/bin/bash
+if  [ ! -e arg_count_check.bash ]
+then
+echo -e "\033[31marg_count_check.bash file is damaged fapplication is not available\033[0m"
+fi
 case $1 in
 	calc)
 	if [ -e calc.bash ]
