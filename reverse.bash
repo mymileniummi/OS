@@ -7,8 +7,8 @@ function reverse {
 		if [ ! -e $2 ]
 		then
 			echo -e "\033[31m File for reading doesnt exists \033[0m"
-		elif [ $3 = ""]
-		then 
+		elif [ $3 = "" ]
+		then
 			echo -e "\033[31m Can not create file with unknown name \033[0m"
 		elif [ ! -r $2 ]
 		then
