@@ -1,16 +1,34 @@
 #!/bin/bash
 case $1 in
 	calc)
+	if [ -e calc.bash ]
+	then 
 	    . ./calc.bash
 	    calc $# $2 $3 $4
+	else
+		echo -e "\033[31mcalc.bash file is damaged function is not available\033[0m"
+		exit 5
+	fi
 	;;
 	search)
+	if [ -e search.bash ]
+	then 
 	     . ./search.bash
 	     search $# $2 $3
+	else
+		echo -e "\033[31msearch.bash file is damaged function is not available\033[0m"
+		exit 6
+	fi
 	;;
 	reverse)
+	if [ -e reverse.bash ]
+	then 
              . ./reverse.bash
 	     reverse $# $2 $3
+	else
+		echo -e "\033[31mreverse.bash file is damaged function is not available\033[0m"
+		exit 7
+	fi
 	;;
 	strlen)
 	     . ./arg_count_check.bash
@@ -21,20 +39,44 @@ case $1 in
 	     fi
 	;;
 	log)
+	if [ -e log.bash ]
+	then 
 	     . ./log.bash
 	     log $#
+	else
+		echo -e "\033[31mlog.bash file is damaged function is not available\033[0m"
+		exit 8
+	fi
 	;;
 	exit)
+	if [ -e exit.bash ]
+	then 
 	     . ./exit.bash
 	     eXXit $2
+	else
+		echo -e "\033[31mexit.bash file is damaged function is not available\033[0m"
+		exit 9
+	fi
 	;;
 	help)
+	if [ -e help.bash ]
+	then 
 	     . ./help.bash
              help
+	else
+		echo -e "\033[31mhelp.bash file is damaged function is not available\033[0m"
+		exit 10
+	fi
 	;;
 	interactive)
+	if [ -e interactive.bash ]
+	then 
 	  . ./interactive.bash
 	  menu
+	 else
+		echo -e "\033[31minteractive.bash file is damaged function is not available\033[0m"
+		exit 10
+	fi
 	;;
 	*)
 	echo -e "\033[31m Unknoun command\033[0m"
