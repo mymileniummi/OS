@@ -17,7 +17,7 @@ case $1 in
 	;;
 	search)
 	if [ -e search.bash ]
-	then 
+	then
 	     . ./search.bash
 	     search $# $2 $3
 	else
@@ -27,7 +27,7 @@ case $1 in
 	;;
 	reverse)
 	if [ -e reverse.bash ]
-	then 
+	then
              . ./reverse.bash
 	     reverse $# $2 $3
 	else
@@ -45,9 +45,14 @@ case $1 in
 	;;
 	log)
 	if [ -e log.bash ]
-	then 
-	     . ./log.bash
+	then
+             . ./arg_count_check.bash
+	     arg_count $# 1
+	     if [ $? -eq 0 ]
+	     then
+             . ./log.bash
 	     log $#
+	     fi
 	else
 		echo -e "\033[31mlog.bash file is damaged function is not available\033[0m"
 		exit 8
@@ -65,7 +70,7 @@ case $1 in
 	;;
 	help)
 	if [ -e help.bash ]
-	then 
+	then
 	     . ./help.bash
              help
 	else
@@ -75,7 +80,7 @@ case $1 in
 	;;
 	interactive)
 	if [ -e interactive.bash ]
-	then 
+	then
 	  . ./interactive.bash
 	  menu
 	 else
@@ -84,6 +89,8 @@ case $1 in
 	fi
 	;;
 	*)
-	echo -e "\033[31m Unknoun command\033[0m"
+		echo -e "\033[31m Unknoun command\033[0m"
+		. ./help.bash
+		help
 	;;
 esac
