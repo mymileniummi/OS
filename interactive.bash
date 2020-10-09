@@ -63,18 +63,19 @@ function menu {
 		;;
 		e)
 		if [ -e exit.bash ]
-		then 
+		then
 			echo "Exit code:"
 			read arg1
 			. ./exit.bash
-			eXXit $arg1
+			eXXit "i"  $arg1
 		else
 		echo -e "\033[31mexit.bash file is damaged function is not available\033[0m"
 		fi
 		;;
 		h)
 		if [ -e help.bash ]
-		then 
+
+		then
 			. ./help.bash
 			help
 		else

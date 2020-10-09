@@ -6,8 +6,15 @@ function reverse {
 	then
 		if [ $2 == $3 ]
 		then
-		rev $2 >> $3
-		echo "Reversed successfully"
+			if ! [ -e temp.txt ]
+			then
+			echo -e "\033[31mFile temp.txt doesn't exist, no way to reverse in itself\033[0m"
+			else
+			echo -n > temp.txt
+			cat $2 > temp.txt
+			rev temp.txt > $3
+			echo "Reversed successfully"
+			fi
 		elif [ ! -e $2 ]
 		then
 			echo -e "\033[31m File for reading doesn't exist\033[0m"

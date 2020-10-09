@@ -62,7 +62,7 @@ case $1 in
 	if [ -e exit.bash ]
 	then 
 	     . ./exit.bash
-	     eXXit $2
+	     eXXit $1 $2
 	else
 		echo -e "\033[31mexit.bash file is damaged function is not available\033[0m"
 		exit 9
