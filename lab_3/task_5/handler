@@ -1,0 +1,35 @@
+#!/bin/bash
+res=1
+operation='+'
+tail -f task.in | while true
+do
+	read line
+	case $line in
+	'+')
+		operation='+'
+		echo "Sum"
+	;;
+	"QUIT")
+		killall tail
+		exit 0
+	;;
+	"*")
+		operation='*'
+		echo "Multiplication"
+	;;
+	[0-9]*)
+		if [[ $operation == '+' ]]
+		then
+			let res=$res+$line
+		else
+			let res=$res\*$line
+		fi
+		echo "$operation$line = $res"
+	;;
+	*)
+		echo "Input data error"
+		killall tail
+		exit 1
+	;;
+	esac
+done

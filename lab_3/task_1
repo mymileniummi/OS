@@ -1,0 +1,8 @@
+#!/bin/bash
+
+message="catalog test was created successfully"
+DateTime=$(date '+%d.%m.%y_%H:%M:%S')
+
+mkdir ~/test && echo "$message" >> ~/report && touch ~/test/$DateTime
+
+ping -i www.net_nikogo.ru || echo "host is not available" >>~/report

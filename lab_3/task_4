@@ -1,0 +1,12 @@
+#!/bin/bash
+./task_4_cycle&pid1=$!
+./task_4_cycle&pid2=$!
+./task_4_cycle&pid3=$!
+
+echo "processes:
+$pid1
+$pid2
+$pid3 "
+renice +10 $pid1
+
+at now+1minute <<<"kill ${pid1} ; kill ${pid2} ; kill ${pid3}"

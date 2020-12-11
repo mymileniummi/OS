@@ -1,0 +1,4 @@
+#!/bin/bash
+mkfifo task.in
+bash handler&bash generator
+rm task.in
