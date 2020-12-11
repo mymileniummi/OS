@@ -1,0 +1,32 @@
+#!/bin/bash
+echo $$ > mypid
+a=1
+mode="+"
+sigterm(){
+	exit 0
+}
+usr_1(){
+	mode="+"
+	echo "mode changed:$mode"
+}
+usr_2(){
+	mode="*"
+	echo "mode changed:$mode"
+}
+trap 'sigterm'SIGTERM
+trap 'usr_1' USR1
+trap 'usr_2' USR2
+
+while true;
+do
+	case $mode in
+	'+')
+		let a=$a+2
+	;;
+	"*")
+		let a=$a*2
+	;;
+	esac
+	echo $a
+	sleep 2
+done

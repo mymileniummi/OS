@@ -1,0 +1,22 @@
+#!/bin/bash
+./handler&
+while true;
+do
+	read line
+	case $line in
+	"TERM")
+		kill -SIGTERM $(cat mypid)
+		exit 0
+	;;
+	"+")
+		kill -USR1 $(cat mypid)
+	;;
+	"*")
+		kill -USR2 $(cat mypid)
+	;;
+	*)
+		continue
+	;;
+	esac
+done
+
