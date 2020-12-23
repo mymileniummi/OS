@@ -1,0 +1,30 @@
+#!/bin/bash
+
+[ $# -eq 0 ] && echo -e "\033[31mNo file to make link\033[0m" &&  exit 1
+[ -d $1 ] && echo -e "\033[31mFile to link is a directory\033[0m"  && exit 2
+if ! [ -e $PWD/"$1" ]
+then
+   	echo -e "\033[31mFile to link doesn't exists\033[0m"
+	exit 3
+fi
+
+if ! [ -e .trash ]
+then
+	mkdir .trash
+fi
+if ! [ -e /tmp/num_ ]
+then
+	 touch /tmp/num_
+	 echo "1" > /tmp/num_
+fi
+
+num=$(cat /tmp/num_)
+
+ln  $1 ./.trash/file$num
+[ -e .trash.log ] ||  touch .trash.log
+echo "$PWD/$1" >> .trash.log
+
+let num=$num+1
+echo "$num">/tmp/num_
+
+rm  -- "$1"
