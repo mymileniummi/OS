@@ -1,10 +1,49 @@
 #!/bin/bash
 cd ~/
-lastBackupDate="$( ls | grep -E "^Bacup-" | sort -n | tail -1 | cut -d "-" -f 2,3,4 )"
-cur_date="$(date +%Y-%m-%d)"
-last_sec="$(date -d "lastBackupDate" +%s)"
-now_sec-"$(date -d "cur_date" +%s)"
+[ ! -d source ] && echo -e "\033[31mSource file doesnt exist\033[0m" && exit 1
 
+lastBackupDate=$( ls | grep -E "^Backup-" | sort -n | tail -1 | cut -d "-" -f 2,3,4 )
+echo "$lastBackupDate"
+
+cur_date=$(date +%Y-%m-%d)
+last_sec=$(date -d "$lastBackupDate" +%s)
+now_sec=$(date -d "$cur_date" +%s)
+null=""
 let d=($now_sec-$last_sec)/60/60/24
+[ "$lastBackupDate" == "$null" ] && let d=8
 
-if  [[ $d  ]]
+if  [[ $d -gt 7 ]]
+then
+	mkdir "Backup-$cur_date"
+	source_ls=$(ls ~/source)
+	echo "New Backup directory:Backup-$cur_date was created. Files added:$source_ls" >> backup-report
+		cd ~/source
+		for line in $source_ls
+		do
+			cp -r $line ~/Backup-$cur_date
+		done
+		cd ~/
+else
+	source_ls=$( ls ~/source)
+	cd ~/Backup-$lastBackupDate
+		for line in $source_ls
+		do
+			res=$( ls | grep $line )
+			if [ "$res" == "$null" ]
+			then
+				cp -r ~/source/$line ~/Backup-$lastBackupDate
+				echo "$line added in Backup" >> ~/backup-report
+			else
+				source_file_size=$(ls -l -- ~/source/$line | awk '{print$5}')
+				backup_file_size=$(ls -l  $line | awk '{print$5}')
+					if [[ $source_file_size -ne $backup_file_size ]]
+					then
+					ln $line  $line-$cur_date
+					rm $line
+					cp -r  -- ~/source/$line ~/Backup-$lastBackupDate
+					echo "$line renamed to $line-$cur_date" >> ~/backup-report
+					fi
+			fi
+		done
+
+fi

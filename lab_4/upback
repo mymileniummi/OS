@@ -1,0 +1,15 @@
+#!/bin/bash
+cd ~/
+[ ! -d restore ] && mkdir restore
+
+lastBackup=$(ls | grep -E "^Backup" | sort -n  | tail -1 )
+cd "$lastBackup"
+backup_ls=$(ls)
+for line in $backup_ls
+do
+	clone_files=$( echo "$line" | grep -a -oP '[A-Za-z0-9]{1,}-[0-9]{4}-[0-9]{2}-[0-9]{2}' )
+		if [ "$line" != "$clone_files"	]
+		then
+			cp -r "$line"  ~/restore
+		fi
+done
