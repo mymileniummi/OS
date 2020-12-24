@@ -3,6 +3,10 @@ cd ~/
 [ ! -d restore ] && mkdir restore
 
 lastBackup=$(ls | grep -E "^Backup" | sort -n  | tail -1 )
+if [ "$lastBackup" == "" ]
+then
+	exit 1
+fi
 cd "$lastBackup"
 backup_ls=$(ls)
 for line in $backup_ls
