@@ -1,0 +1,65 @@
+#!/bin/bash
+[ $#  -eq 0 ] && echo -e "\033[31mNo file given to untrash\033[0m" && exit 1
+! [ -e ~/.trash.log ] && echo -e "\033[31mFile trash.log doesn't exist\033[0m" && exit 2
+! [ -e ~/.trash ] && echo -e "\033[31mTrash doesnt exist\033[0m " && exit 3
+
+file="$1"
+res=$( cat  ~/.trash.log )
+echo "" > ~/.trash.log
+
+for line in $res
+do
+if [[ "$line" =~ "$file:" ]]
+then
+	echo -e "\033[35mDo you want to recover this file:$line?(y/n)\033[0m"
+	read ans
+		case $ans in
+		"y")
+			cd ~/.trash
+			trashfile=$( echo "$line" | cut -d ":" -f 2 )
+			path=$( echo "$line" | cut -d ":" -f 1)
+			if [ ! -f $path ]
+			then
+			ln  "$trashfile" "$path"
+			rm  "$trashfile"
+			echo -e  "\033[36mfile successfuly untrashed\033[0m"
+			else
+				echo -e "\033[36mFile already exists, create it in home directory?\033[0m(y/n)"
+				read ans2
+				case $ans2 in
+				"y")
+					cd ~/
+					if [ -f file ]
+					then
+						echo -e "033[36mFile exists even in home derctory"
+						cd ~/.trash
+					else
+					cd ~/.trash
+					ln  $trashfile  ~/$file
+					rm  "$trashfile"
+					echo -e  "\033[36mFile successfully untrashed\033[0m"
+					fi
+				;;
+				"n")
+
+				;;
+				*)
+					echo -e "\003[36m type y or n to answer\033[0m"
+				;;
+				esac
+			fi
+ 		;;
+		"n")
+
+		;;
+		*)
+		echo -e "\033[31mType y or n ro answer\033[0m"
+		;;
+		esac
+
+	cd ~/
+else
+	echo $line >> .trash.log
+fi
+done
+

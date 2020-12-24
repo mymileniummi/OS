@@ -8,9 +8,9 @@ then
 	exit 3
 fi
 
-if ! [ -e .trash ]
+if ! [ -e ~/.trash ]
 then
-	mkdir .trash
+	mkdir ~/.trash
 fi
 if ! [ -e /tmp/num_ ]
 then
@@ -20,9 +20,9 @@ fi
 
 num=$(cat /tmp/num_)
 
-ln  $1 ./.trash/file$num
-[ -e .trash.log ] ||  touch .trash.log
-echo "$PWD/$1" >> .trash.log
+ln  $1 ~/.trash/file$num
+[ -e ~/.trash.log ] ||  touch ~/.trash.log
+echo "$PWD/$1:file$num" >> ~/.trash.log
 
 let num=$num+1
 echo "$num">/tmp/num_

@@ -1,0 +1,10 @@
+#!/bin/bash
+cd ~/
+lastBackupDate="$( ls | grep -E "^Bacup-" | sort -n | tail -1 | cut -d "-" -f 2,3,4 )"
+cur_date="$(date +%Y-%m-%d)"
+last_sec="$(date -d "lastBackupDate" +%s)"
+now_sec-"$(date -d "cur_date" +%s)"
+
+let d=($now_sec-$last_sec)/60/60/24
+
+if  [[ $d  ]]
