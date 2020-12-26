@@ -1,0 +1,24 @@
+log="/var/log/anaconda/X.log"
+check=0
+
+[ ! -e $log ] && echo "No log file" && check=1
+[ ! -r $log ] && echo "No rights for reading log file" && check=1
+
+if [ $check -eq 0 ]
+then
+	lines=$(cat $log)
+	for line in $lines
+	do
+	if [[ "$line" == *"(WW)"* && "$line" != *"(WW) warning, (EE) error, (NI) not implemented, (??) unknown."* ]]
+	    then
+		 echo -e ${line//"(WW)"/"\e[33mWarning: \e[0m"}
+	fi
+	done
+	for line in $lines
+	do
+	if [[ "$line" == *"(II)"* && "$line" != *"(++) from command line, (!!) notice, (II) informational,"* ]];
+  then 
+	echo -e  ${line//"(II)"/"\e[36mInformation:\e[0m"}
+	fi
+	done
+fi
