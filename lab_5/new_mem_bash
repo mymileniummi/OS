@@ -1,0 +1,11 @@
+#!/bin/bash
+N=$1
+arr=()
+step=0
+while :
+do
+need_exit=$(($step*20))
+[[ $need_exit -gt N ]]  && exit 4
+arr+=(11 12 13 14 15 16 17 18 19 20 1 2 3 4 5 6 7 8 9 99)
+step=$(($step+1))
+done
